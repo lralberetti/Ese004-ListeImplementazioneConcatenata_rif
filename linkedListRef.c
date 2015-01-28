@@ -7,8 +7,20 @@
  * Return -1 if memory allocation fails.
  */
 int LLInsertAtBeginning(LLElement **first, int key) {
-    // TODO Implementation needed
-    return -1;
+    int r=0;
+    LLElement *newelement;
+    newelement=(LLElement*)malloc(sizeof(LLElement));
+    if(newelement!=NULL)
+    {
+        newelement->key=key;
+        newelement->next=*first;
+        *first=newelement;
+    }
+    else
+    {
+      return  r=-1;
+    } 
+    return r;
 }
 
 /*
@@ -17,7 +29,7 @@ int LLInsertAtBeginning(LLElement **first, int key) {
  * Return -1 if memory allocation fails.
  */
 int LLInsertAtEnd(LLElement **first, int key) {
-    // TODO Implementation needed
+    // TODO assertSizeImplementation needed
     return -1;
 }
 
@@ -38,8 +50,13 @@ int LLInsertAtPosition(LLElement **first, int key, int position) {
  * Returns the size of the list.
  */
 int LLSize(LLElement *first) {
-    // TODO Implementation needed
-    return -1;
+    int i=0;
+    while(first!=NULL)
+    {
+        first=first->next;
+        i++;
+    }
+    return i;
 }
 
 /*
@@ -49,8 +66,17 @@ int LLSize(LLElement *first) {
  * Returns -1 if there is no key at the specified position
  */ 
 int LLGetKey(LLElement *first, int position, int *key) {
-    // TODO Implementation needed
-    return -1;
+    int r=0;
+    int i;
+    for(i=0;i<position;i++)
+    {
+        first=first->next;
+    }
+    if(first!=NULL)
+        *key=first->key;
+    else
+        return r=-1;
+    return r;
 }
 
 /*
@@ -72,8 +98,18 @@ int LLFindKey(LLElement *first, int key, int startPosition, int *position) {
  * Returns -1 in csae of empty list.
  */
 int LLRemoveFirst(LLElement **first) {
-    // TODO Implementation needed
-    return -1;
+    int r=0;
+    LLElement *DeleteElement;
+    if(*first!=NULL)
+    {
+        DeleteElement=*first;
+        *first=(*first)->next;
+        free(DeleteElement);
+    }
+    else
+        return r=-1;
+    return r;
+   
 }
 
 /*
