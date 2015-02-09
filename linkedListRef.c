@@ -29,8 +29,26 @@ int LLInsertAtBeginning(LLElement **first, int key) {
  * Return -1 if memory allocation fails.
  */
 int LLInsertAtEnd(LLElement **first, int key) {
-    // TODO assertSizeImplementation needed
-    return -1;
+    int r=0;
+    LLElement *newelement;
+    LLElement **temp;
+    newelement=(LLElement*)malloc(sizeof(LLElement));
+    if(newelement!=NULL)
+    {
+        temp=first;
+        while(*temp!=NULL)
+        {
+            temp=&((*temp)->next);
+        }
+        newelement->next=NULL;
+        newelement->key=key;
+        *temp=newelement;
+    }
+    else
+    {
+        return r=-1;
+    }
+    return r;
 }
 
 /*
@@ -116,11 +134,22 @@ int LLRemoveFirst(LLElement **first) {
  * Remove the last element of the list.
  * 
  * Returns 0 on success.
- * Returns -1 in csae of empty list.
+ * Returns -1 in case of empty list.
  */
 int LLRemoveLast(LLElement **first) {
-    // TODO Implementation needed
-    return -1;
+  int r=0;
+    LLElement **DeleteElement;
+    if(*first != NULL) {
+        DeleteElement = first;
+        while((*DeleteElement)->next != NULL) {
+                DeleteElement = &((*DeleteElement)->next);
+            }
+        free(*DeleteElement);
+        *DeleteElement = NULL;
+    }
+    else
+        r = -1;
+    return r;
 }
 
 /*
@@ -132,8 +161,7 @@ int LLRemoveLast(LLElement **first) {
  * Returns -1 in case it does not exist any element at the specified position
  */
 int LLRemoveAtPosition(LLElement **first, int position) {
-    // TODO Implementation needed
-    return -1;
+    
 }
 
 /*
