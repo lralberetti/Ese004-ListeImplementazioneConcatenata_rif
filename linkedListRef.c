@@ -60,8 +60,27 @@ int LLInsertAtEnd(LLElement **first, int key) {
  * Return -1 if memory allocation fails.
  */
 int LLInsertAtPosition(LLElement **first, int key, int position) {
-    // TODO Implementation needed
-    return -1;
+    int r=0;
+    LLElement *newelement;
+    newelement=(LLElement*)malloc(sizeof(LLElement));
+    LLElement **scorri;
+    scorri=first;
+    int i;
+    if(newelement!=NULL)
+    {
+        
+    
+        for(i=0;i<position;i++)
+        {
+            scorri=&((*scorri)->next);
+        }
+        newelement->key=key;
+        newelement->next=*scorri;
+        *scorri=newelement;
+    }
+    else
+        return r=-1;
+    return r;
 }
 
 /*
@@ -71,8 +90,8 @@ int LLSize(LLElement *first) {
     int i=0;
     while(first!=NULL)
     {
-        first=first->next;
         i++;
+        first=first->next;
     }
     return i;
 }
@@ -86,7 +105,7 @@ int LLSize(LLElement *first) {
 int LLGetKey(LLElement *first, int position, int *key) {
     int r=0;
     int i;
-    for(i=0;i<position;i++)
+    for(i=0; i<position && first != NULL; i++)
     {
         first=first->next;
     }
@@ -105,10 +124,23 @@ int LLGetKey(LLElement *first, int position, int *key) {
  * Returns -1 if not found. 
  */ 
 int LLFindKey(LLElement *first, int key, int startPosition, int *position) {
-    // TODO Implementation needed
-    return -1;
+  int r=0;
+    int i;
+    *position = -1;
+    for(i=0; i<startPosition && first != NULL; i++) {
+        first = first->next;
+    }
+    while(first != NULL && *position == -1) {
+        if(first->key == key) {
+            *position = i;
+        }
+        first = first->next;
+        i++;
+    }
+    if(first == NULL)
+        r = -1;
+    return r;
 }
-
 /*
  * Remove the first element of the list.
  * 
@@ -161,7 +193,26 @@ int LLRemoveLast(LLElement **first) {
  * Returns -1 in case it does not exist any element at the specified position
  */
 int LLRemoveAtPosition(LLElement **first, int position) {
+    LLElement **scorri;
+    LLElement *DeleteElement;
+    scorri=first;
+    int r=0;
+    int i;
+    for(i=0;i<position;i++)
+    {
+        scorri=&((*scorri)->next);
+    }
+    if(*scorri != NULL) {
+         DeleteElement=*scorri;
+        if((*scorri)->next!=NULL){
+         *scorri=((*scorri)->next);
+      }
+    free(DeleteElement);
+    }
+    else
+        r = -1;
     
+    return r;
 }
 
 /*
@@ -170,6 +221,17 @@ int LLRemoveAtPosition(LLElement **first, int position) {
  * Return -1 in case of emtpy list. 
  */
 int LLEmptyList(LLElement **first) {
-    // TODO Implementation needed
-    return -1;
+     int r=0;
+    LLElement *DeleteElement;
+    if(*first != NULL) 
+    {
+        while(*first != NULL) {
+            DeleteElement = *first;
+            *first = (*first)->next;
+            free(DeleteElement);
+        }
+    }
+    else
+        r = -1;
+    return r;
 }
